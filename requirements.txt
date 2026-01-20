@@ -7,4 +7,6 @@
 
 \f0\fs24 \cf0 transformers\
 torch\
-sentencepiece}
+sentencepiece\
+openai-whisper\
+ffmpeg-python}
