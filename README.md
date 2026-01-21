@@ -72,3 +72,16 @@ Chinese text for:
 - Short videos
 - Long-form videos/podcasts
 - Chinese audio narration
+
+### System Dependency
+
+FFmpeg is required for audio input mode.
+
+Mac:
+brew install ffmpeg
+
+Ubuntu:
+sudo apt update && sudo apt install ffmpeg
+
+Windows:
+Download from https://ffmpeg.org/download.html
