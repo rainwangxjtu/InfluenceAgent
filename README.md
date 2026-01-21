@@ -85,3 +85,10 @@ sudo apt update && sudo apt install ffmpeg
 
 Windows:
 Download from https://ffmpeg.org/download.html
+
+## Web Demo (Streamlit)
+
+Run the interactive demo:
+
+```bash
+streamlit run streamlit_app.py
