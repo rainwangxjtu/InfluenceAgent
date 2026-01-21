@@ -1,13 +1,22 @@
 # python3
-
+import whisper
 from transformers import pipeline
+import os
 
-class Podcast2ChineseSystem:
+class InfluenceAgent:
     def __init__(self):
-        print("Loading models...")
+        print("Loading Whisper ASR model...")
+        self.asr = whisper.load_model("base")
+
+        print("Loading NLP models...")
         self.summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
         self.translator = pipeline("translation_en_to_zh", model="Helsinki-NLP/opus-mt-en-zh")
         self.generator = pipeline("text2text-generation", model="google/flan-t5-large")
+
+    def transcribe_audio(self, audio_path):
+        print(f"Transcribing audio: {audio_path}")
+        result = self.asr.transcribe(audio_path)
+        return result["text"]
 
     def summarize(self, text, mode="short"):
         if mode == "short":
@@ -26,11 +35,15 @@ class Podcast2ChineseSystem:
     def translate(self, text):
         return self.translator(text)[0]["translation_text"]
 
-    def generate_for_audience(self, text, audience="students"):
-        prompt = f"Rewrite the following content for {audience} in Chinese, clearly and engagingly:\n{text}"
+    def generate_for_audience(self, text, audience="Chinese college students"):
+        prompt = f"Rewrite the following content in Chinese for {audience}, clearly and engagingly:\n{text}"
         return self.generator(prompt, max_length=256)[0]["generated_text"]
 
-    def run(self, text):
+    def run_from_audio(self, audio_path):
+        text = self.transcribe_audio(audio_path)
+        self.run_from_text(text)
+
+    def run_from_text(self, text):
         print("\n--- Short Summary (EN) ---")
         short = self.summarize(text, "short")
         print(short)
@@ -48,13 +61,18 @@ class Podcast2ChineseSystem:
         print(zh_long)
 
         print("\n--- Student-Oriented Chinese Output ---")
-        student = self.generate_for_audience(zh_long, "Chinese college students")
+        student = self.generate_for_audience(zh_long)
         print(student)
 
 
 if __name__ == "__main__":
-    with open("sample_input.txt", "r", encoding="utf-8") as f:
-        text = f.read()
+    agent = InfluenceAgent()
 
-    system = Podcast2ChineseSystem()
-    system.run(text)
+    AUDIO_FILE = "sample_audio.mp3"
+
+    if os.path.exists(AUDIO_FILE):
+        agent.run_from_audio(AUDIO_FILE)
+    else:
+        with open("sample_input.txt", "r", encoding="utf-8") as f:
+            text = f.read()
+        agent.run_from_text(text)
