@@ -92,3 +92,5 @@ Run the interactive demo:
 
 ```bash
 streamlit run streamlit_app.py
+
+conda install -c conda-forge ffmpeg
