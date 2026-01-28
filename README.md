@@ -94,3 +94,11 @@ Run the interactive demo:
 streamlit run streamlit_app.py
 
 conda install -c conda-forge ffmpeg
+
+## Demo: English audio → Chinese audio (end-to-end)
+
+1) Put a short English clip in the repo root as `sample_audio.mp3` (30–45s recommended).
+
+2) Install dependencies:
+```bash
+pip install -r requirements.txt
