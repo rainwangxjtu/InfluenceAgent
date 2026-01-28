@@ -94,7 +94,7 @@ Each component is independently replaceable, enabling experimentation with diffe
 ├── requirements.txt
 └── system_diagram.png
 
-```md
+```
 ---
 
 ## Dependencies
@@ -119,31 +119,25 @@ sudo apt update && sudo apt install ffmpeg
 
 Notes: edge-tts requires an internet connection to generate speech.
 
-Demo: English audio → Chinese audio (end-to-end)
+## Demo: English audio → Chinese audio (end-to-end)
 
-Put a short English clip in the repo root as:
+1. Put a short English clip in the repo root as:
 
 sample_audio.mp3
 
+*Recommended length: 30–45 seconds.
 
-Recommended length: 30–45 seconds.
-
-Run:
+2. Run:
 
 python -u audio2audio_test.py
 
-
 Outputs:
 
-zh_output.txt (Chinese script)
-
-zh_output.mp3 (Chinese narration audio)
+- zh_output.txt (Chinese script)
+- zh_output.mp3 (Chinese narration audio)
 
 macOS playback:
-
 afplay zh_output.mp3
 
-
 Watch logs:
-
 tail -f influenceagent.log
