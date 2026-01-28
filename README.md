@@ -94,6 +94,7 @@ Each component is independently replaceable, enabling experimentation with diffe
 ├── requirements.txt
 └── system_diagram.png
 
+---
 
 ## Dependencies 
 
