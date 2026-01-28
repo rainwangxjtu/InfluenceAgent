@@ -105,7 +105,7 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-### System dependency (required for Whisper)
+**### System dependency (required for Whisper)**
 
 Whisper requires ffmpeg for audio decoding.
 
