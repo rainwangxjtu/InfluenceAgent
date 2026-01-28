@@ -1,3 +1,24 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Logs and outputs
+*.log
+run_output.txt
+zh_output.*
+temp_audio.*
+*.wav
+*.mp3
+*.m4a
+
+# Editor backups
+*.save
+*TAB
 __pycache__/
 *.pyc
 *.log
