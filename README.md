@@ -1,104 +1,118 @@
 # InfluenceAgent: A Cross-Lingual Podcast-to-Chinese NLP System
-This project implements a scalable, modular NLP system that converts English podcast content into audience-adapted Chinese multimedia outputs.
 
-🔍 Overview
+InfluenceAgent is a modular NLP pipeline that converts **English podcast audio/text** into **Chinese summaries and audience-adapted scripts**, and can optionally generate **Chinese narration audio**.
 
-InfluenceAgent is a scalable, modular Natural Language Processing (NLP) system that converts English podcast content into audience-adapted Chinese multimedia outputs.
+This repo is designed as an applied ML/NLP systems demo, emphasizing pipeline design, model integration, reproducibility, and engineering trade-offs.
 
-By integrating speech recognition (Whisper), summarization, neural machine translation, and controlled text generation, the system enables flexible generation of:
+---
 
-- Short-form Chinese video content (≤ 1 minute)
-- Long-form Chinese video/podcast content (10–15 minutes)
-- Chinese audio-ready scripts tailored for different audiences
+## Overview
 
-🎯 Motivation
+InfluenceAgent integrates:
+- **Speech Recognition (ASR)**: Whisper (audio → English transcript)
+- **Summarization**: Transformer summarization (short/long)
+- **Machine Translation**: EN → ZH translation
+- **Audience Adaptation**: Controlled generation for different audiences
+- **Optional Chinese TTS**: Chinese text → Chinese audio
 
-High-quality English podcasts contain rich educational and informational content, but language barriers prevent non-English-speaking audiences from accessing this knowledge efficiently.
+Supported outputs:
+- **Short-form** Chinese content (≤ 1 minute)
+- **Long-form** Chinese scripts (10–15 minutes; best with chunking / future work)
+- **Chinese audio-ready scripts** (and optional narration audio)
 
-InfluenceAgent addresses this gap by:
+---
 
-- Enabling automated cross-lingual knowledge transfer
-- Supporting audience-aware content adaptation
-- Providing flexible content length and format control
+## Motivation
+
+High-quality English podcasts contain rich knowledge and timely reporting, but language barriers prevent many Chinese-speaking audiences from accessing them efficiently.
+
+InfluenceAgent addresses this by:
+- Automating **cross-lingual knowledge transfer**
+- Supporting **audience-aware adaptation** (general / student / professional)
+- Offering **length and format control** (short vs. long summaries)
 
 Beyond translation, this project emphasizes:
-- Modular system design
-- Scalability
-- Engineering trade-offs
-- Research-driven evaluation
+- Modular system architecture
+- Scalability/extensibility
+- Engineering trade-offs (latency vs. quality)
+- Lightweight evaluation and logging
 
-🧠 System Architecture
+---
 
-The system follows a pipeline-based design:
+## System Architecture
 
-    Step 1: English Podcast (Audio/Text)
-                
-    Step 2: Speech Recognition (Whisper)
-                
-    Step 3: Content Summarization (Short / Long)
-                
-    Step 4: Neural Machine Translation (EN → ZH)
-                
-    Step 5: Audience-Aware Content Generation
-                
-    Step 6: Chinese Multimedia Output
+Pipeline design:
 
-Each component is independently replaceable and extensible, allowing experimentation with different models, performance optimizations, and deployment strategies.
+1. **English Podcast (Audio/Text)**
+2. **ASR (Whisper)**
+3. **Summarization (Short / Long)**
+4. **Translation (EN → ZH)**
+5. **Audience-Aware Generation**
+6. **Chinese Output (Text / Optional Audio)**
 
-⚙️ Core Components
-1. Speech Recognition (ASR)
-- Model: OpenAI Whisper
-- Converts raw English podcast audio into text
-- Enables full end-to-end audio-to-Chinese processing
+Each component is independently replaceable, enabling experimentation with different models, speeds, and quality/latency trade-offs.
 
-2. Abstractive Summarization
-- Model: BART (facebook/bart-large-cnn)
-- Generates both short and long summaries
-- Focus: Length control and coherence preservation
+---
 
-3. Neural Machine Translation
-- Model: MarianMT (Helsinki-NLP)
-- Translates English summaries into Chinese
-- Focus: Semantic fidelity and fluency
+## Core Components
 
-4. Audience-Aware Text Generation
-- Model: FLAN-T5
-- Rewrites content based on target audience: general public/students/professionals
+### 1) Speech Recognition (ASR)
+- Model: **OpenAI Whisper**
+- Converts English podcast audio into text for downstream processing
 
-Focus: Controlled text generation and content adaptation
+### 2) Summarization
+- Default model: **BART (facebook/bart-large-cnn)**  
+- Produces short/long summaries  
+- Note: for short inputs, summarizers may behave extractively; instruction-guided summarization is a possible extension.
 
-5. Output Layer
-Chinese text for:
-- Short videos
-- Long-form videos/podcasts
-- Chinese audio narration
+### 3) Machine Translation
+- Model: **MarianMT (Helsinki-NLP)**
+- Translates English summaries into Chinese with emphasis on fidelity + fluency
 
-### System Dependency
+### 4) Audience-Aware Text Generation
+- Model: **FLAN-T5**
+- Rewrites Chinese content for:
+  - general public
+  - students
+  - professionals
 
-FFmpeg is required for audio input mode.
+### 5) Output Layer
+- Chinese text for short/long scripts
+- Optional **Chinese narration audio** (TTS)
 
-Mac:
+---
+
+## Repository Structure
+
+```text
+.
+├── app.py                 # Core pipeline (ASR -> summarize -> translate -> adapt)
+├── audio2audio_test.py    # End-to-end demo: English audio -> Chinese audio
+├── tts.py                 # Chinese TTS helper (edge-tts)
+├── logger.py              # Logging utilities
+├── evaluation.py          # Lightweight evaluation metrics
+├── requirements.txt
+└── system_diagram.png
+
+
+## Dependencies
+
+### Python
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+**System dependency (required for Whisper)**
+
+Whisper requires ffmpeg for audio decoding.
+
+macOS:
+
 brew install ffmpeg
 
-Ubuntu:
+Ubuntu/Debian:
+
 sudo apt update && sudo apt install ffmpeg
 
-Windows:
-Download from https://ffmpeg.org/download.html
-
-## Web Demo (Streamlit)
-
-Run the interactive demo:
-
-```bash
-streamlit run streamlit_app.py
-
-conda install -c conda-forge ffmpeg
-
-## Demo: English audio → Chinese audio (end-to-end)
-
-1) Put a short English clip in the repo root as `sample_audio.mp3` (30–45s recommended).
-
-2) Install dependencies:
-```bash
-pip install -r requirements.txt
+Notes: edge-tts requires an internet connection to generate speech.
