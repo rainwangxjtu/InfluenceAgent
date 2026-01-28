@@ -95,7 +95,7 @@ Each component is independently replaceable, enabling experimentation with diffe
 └── system_diagram.png
 
 
-## Dependencies
+## Dependencies 
 
 ### Python
 ```bash
@@ -103,15 +103,15 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-**System dependency (required for Whisper)**
+## System dependency (required for Whisper)
 
 Whisper requires ffmpeg for audio decoding.
 
-macOS:
+- macOS:
 
 brew install ffmpeg
 
-Ubuntu/Debian:
+- Ubuntu/Debian:
 
 sudo apt update && sudo apt install ffmpeg
 
