@@ -105,8 +105,11 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-### System dependency (required for Whisper)
+```
+---
 
+### System dependency (required for Whisper)
+```bash
 Whisper requires ffmpeg for audio decoding.
 
 - macOS: brew install ffmpeg
@@ -115,8 +118,11 @@ Whisper requires ffmpeg for audio decoding.
 
 Notes: edge-tts requires an internet connection to generate speech.
 
-### Demo: English audio → Chinese audio (end-to-end)
+```
+---
 
+### Demo: English audio → Chinese audio (end-to-end)
+```bash
 1. Put a short English clip in the repo root as:
 
 sample_audio.mp3
@@ -137,3 +143,6 @@ afplay zh_output.mp3
 
 Watch logs:
 tail -f influenceagent.log
+
+```
+---
