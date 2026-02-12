@@ -82,17 +82,15 @@ Each component is independently replaceable, enabling experimentation with diffe
 
 ---
 
-## Repository Structure
 
-```text
-.
-├── app.py                 # Core pipeline (ASR -> summarize -> translate -> adapt)
-├── audio2audio_test.py    # End-to-end demo: English audio -> Chinese audio
-├── tts.py                 # Chinese TTS helper (edge-tts)
-├── logger.py              # Logging utilities
-├── evaluation.py          # Lightweight evaluation metrics
+Also update your “Repository Structure” to reflect reality (remove files you aren’t shipping / aren’t used anymore), e.g.:
+
+```md
+├── app.py           # CLI pipeline (ASR -> summarize -> translate -> adapt -> optional TTS)
+├── logger.py        # Logging utilities
+├── evaluation.py    # Lightweight evaluation metrics
 ├── requirements.txt
-└── system_diagram.png
+└── outputs/         # (gitignored) generated artifacts
 
 ```
 ---
@@ -121,25 +119,33 @@ Notes: edge-tts requires an internet connection to generate speech.
 ```
 ---
 
-### Demo: English audio → Chinese audio (end-to-end)
+## Quickstart: English audio → Chinese text + Chinese audio (TTS)
+
+### 1) Install dependencies
+
 ```bash
-1. Put a short English clip in the repo root as:
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
 
-sample_audio.mp3
+### 2) Install ffmpeg (required by Whisper)
+macOS: brew install ffmpeg
+Ubuntu/Debian: sudo apt update && sudo apt install ffmpeg
 
-Recommended length: 30–45 seconds.
+3. Run the Pipeline:
+python app.py --audio data/clips/sample_audio.mp3 --audience student
 
-2. Run:
-
-python -u audio2audio_test.py
-
-Outputs:
-
-- zh_output.txt (Chinese script)
-- zh_output.mp3 (Chinese narration audio)
+outputs/pilot/
+  asr_en.txt
+  sum_short_en.txt
+  sum_long_en.txt
+  sum_short_zh.txt
+  sum_long_zh.txt
+  rewrite_zh.txt
+  tts_zh.wav   (or .aiff if ffmpeg isn't available)
 
 macOS playback:
-afplay zh_output.mp3
+afplay outputs/pilot/tts_zh.wav 2>/dev/null || open outputs/pilot/tts_zh.aiff
 
 Watch logs:
 tail -f influenceagent.log
