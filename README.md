@@ -97,21 +97,17 @@ Each component is independently replaceable, enabling experimentation with diffe
 
 ## Quickstart: English audio → Chinese text + Chinese audio (TTS)
 
-1) Install dependencies
 ```md
+1) Install dependencies
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-```md
 
 2) Install ffmpeg (required by Whisper)
-```md
 macOS: brew install ffmpeg
 Ubuntu/Debian: sudo apt update && sudo apt install ffmpeg
-```md
 
 3) Run the Pipeline:
-```md
 python app.py --audio data/clips/sample_audio.mp3 --audience student
 
 outputs/pilot/
@@ -128,5 +124,6 @@ afplay outputs/pilot/tts_zh.wav 2>/dev/null || open outputs/pilot/tts_zh.aiff
 
 Watch logs:
 tail -f influenceagent.log
+
 ```md
 ---
