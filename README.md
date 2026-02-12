@@ -83,7 +83,7 @@ Each component is independently replaceable, enabling experimentation with diffe
 ---
 
 
-Also update your “Repository Structure” to reflect reality (remove files you aren’t shipping / aren’t used anymore), e.g.:
+### Repository Structure
 
 ```md
 ├── app.py           # CLI pipeline (ASR -> summarize -> translate -> adapt -> optional TTS)
@@ -91,30 +91,6 @@ Also update your “Repository Structure” to reflect reality (remove files you
 ├── evaluation.py    # Lightweight evaluation metrics
 ├── requirements.txt
 └── outputs/         # (gitignored) generated artifacts
-
-```
----
-
-## Dependencies
-
-### Python
-```bash
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-
-```
----
-
-### System dependency (required for Whisper)
-```bash
-Whisper requires ffmpeg for audio decoding.
-
-- macOS: brew install ffmpeg
-
-- Ubuntu/Debian: sudo apt update && sudo apt install ffmpeg
-
-Notes: edge-tts requires an internet connection to generate speech.
 
 ```
 ---
@@ -132,7 +108,7 @@ pip install -r requirements.txt
 macOS: brew install ffmpeg
 Ubuntu/Debian: sudo apt update && sudo apt install ffmpeg
 
-3. Run the Pipeline:
+### 3) Run the Pipeline:
 python app.py --audio data/clips/sample_audio.mp3 --audience student
 
 outputs/pilot/
