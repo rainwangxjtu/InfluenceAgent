@@ -1,15 +1,26 @@
-# Python
+# python
 __pycache__/
 *.pyc
+*.pyo
+*.pyd
 .venv/
 venv/
+.env
 
-# Outputs
+# outputs / artifacts
 outputs/
 *.wav
 *.aiff
 *.mp3
+*.m4a
 
-# HF / torch caches (optional)
+# logs
+*.log
+
+# macOS
+.DS_Store
+
+# huggingface / torch caches (optional but recommended)
 .cache/
 huggingface/
+hf_cache/
