@@ -124,6 +124,3 @@ afplay outputs/pilot/tts_zh.wav 2>/dev/null || open outputs/pilot/tts_zh.aiff
 
 Watch logs:
 tail -f influenceagent.log
-
-```md
----
