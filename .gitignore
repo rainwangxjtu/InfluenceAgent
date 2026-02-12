@@ -1,25 +1,15 @@
-# macOS
-.DS_Store
-
 # Python
 __pycache__/
 *.pyc
-venv/
 .venv/
+venv/
 
-# Logs and outputs
-*.log
-run_output.txt
-zh_output.*
-temp_audio.*
+# Outputs
+outputs/
 *.wav
+*.aiff
 *.mp3
-*.m4a
 
-# Editor backups
-*.save
-*TAB
-__pycache__/
-*.pyc
-*.log
-temp_audio.wav
+# HF / torch caches (optional)
+.cache/
+huggingface/
