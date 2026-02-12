@@ -103,12 +103,16 @@ Each component is independently replaceable, enabling experimentation with diffe
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+```bash
 
 ### 2) Install ffmpeg (required by Whisper)
+```bash
 macOS: brew install ffmpeg
 Ubuntu/Debian: sudo apt update && sudo apt install ffmpeg
+```bash
 
 ### 3) Run the Pipeline:
+```bash
 python app.py --audio data/clips/sample_audio.mp3 --audience student
 
 outputs/pilot/
