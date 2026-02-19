@@ -1,0 +1,2 @@
+clip_id,latency_s.asr,latency_s.summ,latency_s.mt,latency_s.rewrite,latency_s.e2e,proxies.asr_rep3,proxies.sum_compression,proxies.mt_untrans_rate,proxies.rewrite_struct_ok,proxies.rewrite_garbage,proxies.rewrite_line_dup_rate,proxies.rewrite_char_rep8,notes.rewrite_meta.used_fallback
+sample_audio,4.98452615737915,9.163412094116211,3.9013049602508545,11.501576900482178,29.550820112228394,0.0,0.29310344827586204,0.07692307692307693,True,False,0.0,0.046511627906976744,False
