@@ -3,21 +3,21 @@ __pycache__/
 *.pyc
 *.pyo
 *.pyd
-.venv/
-venv/
-.env
 
-# outputs / artifacts
+# venv
+venv/
+.venv/
+
+# outputs / logs
 outputs/
+*.log
+
+# audio artifacts
 *.wav
 *.aiff
 *.mp3
-*.m4a
 
-# logs
-*.log
-
-# macOS
+# OS
 .DS_Store
 
 # huggingface / torch caches (optional but recommended)
